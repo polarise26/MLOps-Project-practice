@@ -1,6 +1,6 @@
 import logging
 import pandas as pd
-import mlflow
+# import mlflow
 
 from zenml import step
 from sklearn.base import RegressorMixin
@@ -19,23 +19,22 @@ def trainModel(
 
     try:
         model = None
-        if config.model_name = "LinearRegression":
-            mlflow.sklearn.autolog()
+        if config.model_name == "LinearRegression":
+            # mlflow.sklearn.autolog()
             model = LinearRegressionModel()
         elif config.model_name == "lightgbm":
-            mlflow.lightgbm.autolog()
+            # mlflow.lightgbm.autolog()
             model = LightGBMModel()
         elif config.model_name == "randomforest":
-            mlflow.sklearn.autolog()
+            # mlflow.sklearn.autolog()
             model = RandomForestModel()
         elif config.model_name == "xgboost":
-            mlflow.xgboost.autolog()
+            # mlflow.xgboost.autolog()
             model = XGBoostModel()
-        pass
-
-        tuner = HyperparameterTuner(model, x_train, y_train, x_test, y_test)
 
         if config.fine_tuning == True:
+            tuner = HyperparameterTuner(
+                model, x_train, y_train, x_test, y_test)
             best_params = tuner.optimize()
             trained_model = model.train(x_train, y_train, **best_params)
         else:

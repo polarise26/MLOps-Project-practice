@@ -48,9 +48,9 @@ class DataPreProcessStrategy(DataStrategy):
             raise e
 
 
-class DataDivideStrategy(DataStrategy) -> Union[pd.DataFrame, pd.Series]:
+class DataDivideStrategy(DataStrategy):
 
-    def handleData(self, df: pd.DataFrame):
+    def handleData(self, df: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
         try:
             X = df.drop(["review_score"], axis=1)
             y = df["review_score"]
@@ -75,7 +75,7 @@ class DataCleaning:
             raise e
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     data = pd.read_csv(
         r"C:\Users\kannu\OneDrive\Documents\github-repos\MLOps-Project-practice\data\olist_customers_dataset.csv")
     data_cleaner = DataCleaning(data, DataPreProcessStrategy())
